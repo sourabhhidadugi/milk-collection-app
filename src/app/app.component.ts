@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { MilkCollectionFormComponent } from "./milk-collection-form/milk-collection-form.component";
-import { TitleComponent } from "./title/title.component";
+import { TitleComponent } from './title/title.component';
 
 @Component({
   selector: 'app-root',

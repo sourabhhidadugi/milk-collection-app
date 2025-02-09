@@ -1,6 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import FormGroup, FormBuilder, Validators
 import { Component } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -32,7 +31,7 @@ const MY_DATE_FORMATS = {
     { provide: DateAdapter, useClass: MomentDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
-  imports: [CommonModule, ReactiveFormsModule, CurrencyFormatterPipe, HttpClientModule]
+  imports: [CommonModule, ReactiveFormsModule, CurrencyFormatterPipe]
 })
 export class MilkCollectionFormComponent {
   // Google API
@@ -45,7 +44,7 @@ export class MilkCollectionFormComponent {
   today = moment().format('DD MMMM YYYY');;
 
   dateToDisplay = this.convertToMarathiDate(this.date);
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder) { }
 
   currentHour = new Date().getHours();
   defaultSession = this.currentHour < 12 ? 'Morning' : 'Evening';
@@ -126,21 +125,21 @@ export class MilkCollectionFormComponent {
       alert(`${vendorName} | Milk ${this.milkCollectionForm.value.quantity} | Fat ${this.milkCollectionForm.value.fat}`)
 
       // Whatsapp
-      const message = encodeURIComponent(`
-        _मीनाताई ठाकरे सह. दूध संस्था, नेसरी_ \n
-        नमस्कार *${vendorName}*,
-        आपल्या म्हैस दूध संकलनाचा तपशील:\n
-        दिनांक: ${this.dateToDisplay}
-        सत्र: ${this.defaultSession === 'morning' ? 'सकाळ' : 'सायंकाळ'}\n
-        दूध: *${this.milkCollectionForm.value.quantity}* लीटर | फॅट: *${this.milkCollectionForm.value.fat}*
-        *रक्कम: ₹. ${this.milkCollectionForm.value.amount}*
-        \n
-        आभारी आहोत!
-        `);
-      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-      window.open(whatsappUrl, '_blank');
+const message = encodeURIComponent(`
+_मीनाताई ठाकरे सह. दूध संस्था, नेसरी_ \n
+नमस्कार *${vendorName}*,
+आपल्या म्हैस दूध संकलनाचा तपशील:\n
+दिनांक: ${this.dateToDisplay}
+सत्र: ${this.defaultSession === 'morning' ? 'सकाळ' : 'सायंकाळ'}\n
+दूध: *${this.milkCollectionForm.value.quantity}* लीटर | फॅट: *${this.milkCollectionForm.value.fat}*
+*रक्कम: ₹. ${this.milkCollectionForm.value.amount}*
+\n
+आभारी आहोत!
+`);
+const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+window.open(whatsappUrl, '_blank');
 
-      // Excel
+      // Excel for future
       const ExcelFileData = {
         sheetName: vendorName,
         date: this.today,
@@ -151,42 +150,9 @@ export class MilkCollectionFormComponent {
       }
 
 
-        this.http.post('http://localhost:3000/add-data', ExcelFileData).subscribe(response => {
-            console.log('Data added successfully');
-          }, error => {
-            console.error('Error adding data:', error);
-          });
-
-
-
-      const values = [
-        [ExcelFileData.date, ExcelFileData.session, ExcelFileData.quantity, ExcelFileData.fat, ExcelFileData.amount]
-      ];
-
-      const body = {
-        values: values
-      };
-
-      const request = new Request(
-        `https://sheets.googleapis.com/v4/spreadsheets/${this.spreadsheetId}/values/${Range}?valueInputOption=RAW&key=${this.apiKey}`,
-        {
-          method: 'PUT',
-          body: JSON.stringify(body),
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-
-      fetch(request)
-      .then(response => response.json())
-      .then(data => {
-        console.log('Data added to sheet:', data);
-      })
-      .catch(error => {
-        console.error('Error adding data to sheet:', error);
-      });
-
-      console.log(ExcelFileData);
-    }
-    this.milkCollectionForm.reset();
+    setTimeout(() => {
+      this.milkCollectionForm.reset();
+    }, 5000);
   }
+}
 }
