@@ -125,20 +125,20 @@ export class MilkCollectionFormComponent {
       const phoneNumber = this.getVendorPhone(vendor);
       alert(`${vendorName} | Milk ${this.milkCollectionForm.value.quantity} | Fat ${this.milkCollectionForm.value.fat}`)
 
-      // // Whatsapp
-      // const message = encodeURIComponent(`
-      //   _मीनाताई ठाकरे सह. दूध संस्था, नेसरी_ \n
-      //   नमस्कार *${vendorName}*,
-      //   आपल्या म्हैस दूध संकलनाचा तपशील:\n
-      //   दिनांक: ${this.dateToDisplay}
-      //   सत्र: ${this.defaultSession === 'morning' ? 'सकाळ' : 'सायंकाळ'}\n
-      //   दूध: *${this.milkCollectionForm.value.quantity}* लीटर | फॅट: *${this.milkCollectionForm.value.fat}*
-      //   *रक्कम: ₹. ${this.milkCollectionForm.value.amount}*
-      //   \n
-      //   आभारी आहोत!
-      //   `);
-      // const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-      // window.open(whatsappUrl, '_blank');
+      // Whatsapp
+      const message = encodeURIComponent(`
+        _मीनाताई ठाकरे सह. दूध संस्था, नेसरी_ \n
+        नमस्कार *${vendorName}*,
+        आपल्या म्हैस दूध संकलनाचा तपशील:\n
+        दिनांक: ${this.dateToDisplay}
+        सत्र: ${this.defaultSession === 'morning' ? 'सकाळ' : 'सायंकाळ'}\n
+        दूध: *${this.milkCollectionForm.value.quantity}* लीटर | फॅट: *${this.milkCollectionForm.value.fat}*
+        *रक्कम: ₹. ${this.milkCollectionForm.value.amount}*
+        \n
+        आभारी आहोत!
+        `);
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(whatsappUrl, '_blank');
 
       // Excel
       const ExcelFileData = {
