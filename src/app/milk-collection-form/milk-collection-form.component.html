@@ -1,0 +1,52 @@
+<div class="houser">
+  <form [formGroup]="milkCollectionForm" (ngSubmit)="onSubmit()" class="form-container">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>दिनांक</td>
+          <td>:</td>
+          <td>{{dateToDisplay}}</td>
+        </tr>
+        <tr>
+          <td>संकलन वेळ </td>
+          <td>:</td>
+          <td>{{ currentSession === 'Morning' ? '🌄 सकाळ' : '🌆 संध्याकाळ' }}</td>
+        </tr>
+        <tr>
+          <td>उत्पादक नाव</td>
+          <td>:</td>
+          <td>
+            <select class="form-select" aria-label="Default select example" formControlName="vendor" >
+              <option value=null disabled>उत्पादक निवडा</option>
+              <option *ngFor="let vendor of vendors" [value]="vendor.name" >{{vendor.name}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>दूध लिटर</td>
+          <td>:</td>
+          <td>  <input type="number" formControlName="quantity" (change)="enableFatField($event)" step="0.1" class="form-control" placeholder="दूध (लिटर)"></td>
+        </tr>
+        <tr>
+          <td>फॅट</td>
+          <td>:</td>
+          <td><input type="number" formControlName="fat" step="0.1" class="form-control" (change)="calculateAmount($event)" placeholder="दुधाचे फॅट"></td>
+        </tr>
+        <tr>
+          <td>रक्कम</td>
+          <td>:</td>
+          <td><input type="text" [value]="amount | currencyFormatter" disabled class="form-control" readonly></td>
+        </tr>
+        <tr>
+          <td><a href="#"></a> </td>
+          <td> </td>
+          <td>
+            <button type="clear" class="btn btn-danger" (click)="clearForm()">Clear Form</button>
+            <button type="submit"  [disabled]="milkCollectionForm.invalid" class="btn btn-success">Success</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  
+</div>

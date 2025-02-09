@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wdth,wght@83.5,100..900&family=Yatra+One&display=swap');
+
+* {
+    text-align: center;
+}
+
+.header {
+    background-color: #ff5200;
+    background-image: linear-gradient(180deg, #ff5200 0%, #ffffff 51%, #2afe7d 100%);
+    padding: 5px;
+    border-radius: 5px;
+    padding: 2vh;
+    font-family: "Noto Sans Devanagari", serif;
+    word-spacing: 2px;
+}
+
+.app-name {
+    font-size: 3vh;
+    margin-top: 2px;
+    color: whitesmoke;
+    padding: 5px;
+    width: 100%;
+    border-radius: 5px;
+    background: #b750d6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #0f5a07, #364e0b);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #43051f, #651871); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+h2 {
+    margin-bottom: 0px;
+    font-weight: 600;
+    font-family: "Noto Sans Devanagari", serif;
+}
+
+p {
+    margin-bottom: 5px;
+}
+
+
